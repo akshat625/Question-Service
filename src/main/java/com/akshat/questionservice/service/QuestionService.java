@@ -3,6 +3,7 @@ package com.akshat.questionservice.service;
 
 import com.akshat.questionservice.dao.QuestionDao;
 import com.akshat.questionservice.model.Question;
+import com.akshat.questionservice.model.QuestionWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,5 +46,14 @@ public class QuestionService {
     public ResponseEntity<String> deleteQuestion(Integer id) {
         questionDao.deleteById(id);
         return new ResponseEntity<>("success",HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<Integer>> getQuestionsForQuiz(String category, int numQ) {
+        List<Integer> questions = questionDao.findRandomQuestionsByCategory(category,numQ);
+        return new ResponseEntity<>(questions,HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<QuestionWrapper>> getQuestionsFromIds(List<Integer> questionIds) {
+
     }
 }
